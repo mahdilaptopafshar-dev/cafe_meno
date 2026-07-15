@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کافه دارچین | منو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #2A1E17;
+    --bg-soft: #34261D;
+    --paper: #F1E6D3;
+    --clove: #8A6A4F;
+    --cinnamon: #C97B3D;
+    --sage: #8B9A6B;
+    --sage-deep: #5F6E45;
+    --line: rgba(241,230,211,0.16);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 400;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  a{ color: inherit; }
+
+  /* ---------- Cinnamon spiral signature (SVG-based, reused as divider & marks) ---------- */
+  .spiral{
+    display:block;
+    opacity:0.9;
+  }
+
+  /* ---------- Background texture ---------- */
+  .grain{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index: 5;
+    opacity: 0.05;
+    background-image: radial-gradient(circle at 1px 1px, #000 1px, transparent 0);
+    background-size: 3px 3px;
+    mix-blend-mode: overlay;
+  }
+
+  /* ---------- Header / Hero ---------- */
+  header{
+    position: relative;
+    min-height: 92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding: 8vh 6vw 10vh;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, rgba(201,123,61,0.16), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow{
+    font-size: clamp(0.7rem, 1.4vw, 0.85rem);
+    letter-spacing: 0.35em;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 1.6rem;
+    font-weight: 600;
+  }
+
+  .hero-mark{
+    width: 74px;
+    height: 74px;
+    margin-bottom: 1.8rem;
+    animation: spin-slow 26s linear infinite;
+  }
+  @keyframes spin-slow{ to{ transform: rotate(360deg); } }
+
+  h1.brand{
+    font-size: clamp(2.8rem, 8vw, 5.6rem);
+    font-weight: 800;
+    margin: 0;
+    color: var(--paper);
+    letter-spacing: -0.01em;
+  }
+
+  .brand-sub{
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--cinnamon);
+    font-weight: 500;
+    margin-top: 0.9rem;
+    max-width: 34ch;
+  }
+
+  .hero-note{
+    margin-top: 3.2rem;
+    font-size: 0.85rem;
+    color: rgba(241,230,211,0.55);
+    display:flex;
+    gap: 0.6rem;
+    align-items:center;
+  }
+  .hero-note::before, .hero-note::after{
+    content:"";
+    width: 28px; height:1px;
+    background: rgba(241,230,211,0.3);
+  }
+
+  /* ---------- Section shell ---------- */
+  main{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 6vw;
+  }
+
+  section.menu-group{
+    padding: 5.5rem 0 3rem;
+    border-bottom: 1px solid var(--line);
+  }
+  section.menu-group:last-of-type{ border-bottom:none; }
+
+  .group-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:1.5rem;
+    margin-bottom: 2.8rem;
+    flex-wrap: wrap;
+  }
+
+  .group-title-wrap{ display:flex; align-items:center; gap: 1rem; }
+
+  .group-spiral{ width: 34px; height:34px; flex-shrink:0; opacity:0.85;}
+
+  .group-title{
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    font-weight: 700;
+    color: var(--paper);
+  }
+
+  .group-desc{
+    color: rgba(241,230,211,0.6);
+    font-size: 0.92rem;
+    max-width: 42ch;
+  }
+
+  /* ---------- Menu items ---------- */
+  .items{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 2.6rem;
+  }
+  @media (max-width: 640px){
+    .items{ grid-template-columns: 1fr; }
+  }
+
+  .item{
+    position:relative;
+    padding: 1.35rem 0;
+    border-bottom: 1px dashed rgba(241,230,211,0.14);
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap: 1rem;
+    transition: padding-inline-start 0.25s ease, color 0.25s ease;
+  }
+
+  .item:hover{
+    padding-inline-start: 0.4rem;
+  }
+  .item:hover .item-name{ color: var(--cinnamon); }
+  .item:hover .item-price{ color: var(--sage); }
+
+  .item-text{ min-width:0; }
+
+  .item-name{
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--paper);
+    transition: color 0.25s ease;
+  }
+
+  .item-tag{
+    display:inline-block;
+    font-size: 0.68rem;
+    padding: 0.1rem 0.55rem;
+    margin-inline-start: 0.5rem;
+    border: 1px solid var(--sage-deep);
+    color: var(--sage);
+    border-radius: 999px;
+    vertical-align: middle;
+    letter-spacing: 0.02em;
+  }
+
+  .item-note{
+    display:block;
+    font-size: 0.8rem;
+    color: rgba(241,230,211,0.45);
+    margin-top: 0.25rem;
+  }
+
+  .item-price{
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--cinnamon);
+    white-space: nowrap;
+    transition: color 0.25s ease;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Signature ritual strip ---------- */
+  .ritual{
+    margin: 2rem 0 5rem;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+  }
+  @media (max-width: 720px){
+    .ritual{ grid-template-columns: repeat(2, 1fr); }
+  }
+  .ritual-step{
+    text-align:center;
+    padding: 1.6rem 0.8rem;
+    background: rgba(241,230,211,0.03);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .ritual-spiral{ width:26px; height:26px; margin: 0 auto 0.8rem; opacity:0.8; }
+  .ritual-label{ font-size: 0.8rem; color: rgba(241,230,211,0.7); }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 4rem 6vw 3.2rem;
+    text-align:center;
+    border-top: 1px solid var(--line);
+    background: var(--bg-soft);
+  }
+  footer .foot-mark{ width:40px; height:40px; margin: 0 auto 1.2rem; opacity:0.7; }
+  footer .foot-name{ font-weight:700; font-size:1.1rem; margin-bottom:0.4rem;}
+  footer .foot-info{ font-size: 0.85rem; color: rgba(241,230,211,0.55); }
+  footer .foot-hours{ margin-top:1.4rem; font-size:0.8rem; color: rgba(241,230,211,0.4); letter-spacing:0.04em;}
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-mark{ animation: none; }
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--sage);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="eyebrow">قهوه‌خانه‌ی محله</div>
+  <svg class="hero-mark spiral" viewBox="0 0 100 100" fill="none">
+    <path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55 C60 40, 78 40, 78 52" stroke="#C97B3D" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="50" r="46" stroke="#8B9A6B" stroke-width="1.2" stroke-dasharray="2 6"/>
+  </svg>
+  <h1 class="brand">کافه دارچین</h1>
+  <p class="brand-sub">جایی برای یک فنجان آرام، بین بوی قهوه‌ی تازه‌دم و دارچینِ در حال جوشیدن</p>
+  <div class="hero-note">هر روز از ساعت ۸ صبح تا ۱۱ شب</div>
+</header>
+
+<main>
+
+  <section class="menu-group" id="hot">
+    <div class="group-head">
+      <div class="group-title-wrap">
+        <svg class="group-spiral spiral" viewBox="0 0 100 100" fill="none">
+          <path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#C97B3D" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        <div class="group-title">نوشیدنی‌های گرم</div>
+      </div>
+      <div class="group-desc">دم‌کرده با دانه‌های تازه‌بوداده، برای صبح‌های آرام و عصرهای طولانی</div>
+    </div>
+
+    <div class="items">
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">اسپرسو</span>
+          <span class="item-note">تک‌شات یا دوبل</span>
+        </div>
+        <div class="item-price">۶۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">آمریکانو</span>
+          <span class="item-note">اسپرسو رقیق‌شده با آب داغ</span>
+        </div>
+        <div class="item-price">۷۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">لاته</span>
+          <span class="item-note">شیر بخاردیده و کف نرم</span>
+        </div>
+        <div class="item-price">۹۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">کاپوچینو</span>
+          <span class="item-note">با پودر دارچین رویه</span>
+          <span class="item-tag">پرفروش</span>
+        </div>
+        <div class="item-price">۹۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">قهوه ترک</span>
+          <span class="item-note">در دیگ مسی، با فال</span>
+        </div>
+        <div class="item-price">۸۰</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">موکای دارچینی</span>
+          <span class="item-note">شکلات تلخ + دارچین سیلان</span>
+          <span class="item-tag">امضای کافه</span>
+        </div>
+        <div class="item-price">۱۱۰</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">چای ماسالا</span>
+          <span class="item-note">هل، دارچین، زنجبیل</span>
+        </div>
+        <div class="item-price">۷۰</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">دمنوش بابونه و عسل</span>
+        </div>
+        <div class="item-price">۶۵</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-group" id="cold">
+    <div class="group-head">
+      <div class="group-title-wrap">
+        <svg class="group-spiral spiral" viewBox="0 0 100 100" fill="none">
+          <path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#8B9A6B" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        <div class="group-title">نوشیدنی‌های سرد</div>
+      </div>
+      <div class="group-desc">خنک و شاداب، برای ظهرهای گرم شهر</div>
+    </div>
+
+    <div class="items">
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">آیس لاته</span>
+        </div>
+        <div class="item-price">۱۰۰</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">کولد برو</span>
+          <span class="item-note">دم سرد ۱۸ ساعته</span>
+        </div>
+        <div class="item-price">۱۱۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">لیموناد نعنا</span>
+        </div>
+        <div class="item-price">۸۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">اسموتی توت‌فرنگی</span>
+        </div>
+        <div class="item-price">۱۰۵</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-group" id="sweets">
+    <div class="group-head">
+      <div class="group-title-wrap">
+        <svg class="group-spiral spiral" viewBox="0 0 100 100" fill="none">
+          <path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#C97B3D" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        <div class="group-title">شیرینی و دسر</div>
+      </div>
+      <div class="group-desc">تازه در همان روز پخته می‌شوند</div>
+    </div>
+
+    <div class="items">
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">چیزکیک نیویورکی</span>
+        </div>
+        <div class="item-price">۹۰</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">براونی گردویی</span>
+        </div>
+        <div class="item-price">۷۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">رول دارچینی</span>
+          <span class="item-tag">امضای کافه</span>
+        </div>
+        <div class="item-price">۸۵</div>
+      </div>
+      <div class="item">
+        <div class="item-text">
+          <span class="item-name">کوکی جو دوسر و کشمش</span>
+        </div>
+        <div class="item-price">۵۵</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ritual">
+    <div class="ritual-step">
+      <svg class="ritual-spiral spiral" viewBox="0 0 100 100" fill="none"><path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#C97B3D" stroke-width="8" stroke-linecap="round"/></svg>
+      <div class="ritual-label">دانه‌ها تازه آسیاب می‌شوند</div>
+    </div>
+    <div class="ritual-step">
+      <svg class="ritual-spiral spiral" viewBox="0 0 100 100" fill="none"><path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#8B9A6B" stroke-width="8" stroke-linecap="round"/></svg>
+      <div class="ritual-label">دم‌آوری با آب فیلترشده</div>
+    </div>
+    <div class="ritual-step">
+      <svg class="ritual-spiral spiral" viewBox="0 0 100 100" fill="none"><path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#C97B3D" stroke-width="8" stroke-linecap="round"/></svg>
+      <div class="ritual-label">چوب دارچین واقعی، نه اسانس</div>
+    </div>
+    <div class="ritual-step">
+      <svg class="ritual-spiral spiral" viewBox="0 0 100 100" fill="none"><path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#8B9A6B" stroke-width="8" stroke-linecap="round"/></svg>
+      <div class="ritual-label">سرو در فنجان گرم</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <svg class="foot-mark spiral" viewBox="0 0 100 100" fill="none">
+    <path d="M50 50 C50 20, 90 20, 90 50 C90 75, 60 75, 60 55" stroke="#C97B3D" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+  <div class="foot-name">کافه دارچین</div>
+  <div class="foot-info">خیابان ولیعصر، نرسیده به میدان تجریش</div>
+  <div class="foot-hours">شنبه تا پنجشنبه ۸ تا ۲۳ — جمعه‌ها ۹ تا ۲۳</div>
+</footer>
+
+</body>
+</html>
